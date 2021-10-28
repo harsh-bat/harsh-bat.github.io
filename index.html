@@ -3,28 +3,39 @@
         <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
         <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
         <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-        <title>This is my example homepage.</title>
+        <title>Assignment 3</title>
     </head>
-    <body>
-        <p>
-            This is some text.
-        </p>
-        <p>
-            This is some more text.
-        </p>
-        <div id="myviz">
-        </div>
-    </body>
+    <h1>
+        <center>
+        Assignment 3
+        </center>
+    </h1>
     <script>
         mySpec = {
-"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "data": {"url": "https://raw.githubusercontent.com/harsh-bat/harsh-bat.github.io/main/building_inventory.csv"},
-    "mark": "square",
-    "encoding": {
-        "x": {"field": "Year Constructed", "type": "quantitative", "scale": {"domain": [900,2050]}},
-        "y": {"field": "Year Acquired", "type": "quantitative", "scale": {"domain": [900,2050]}}
-    }
-};
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width" : 800,
+            "height": 600,
+            "data": {"url": "https://raw.githubusercontent.com/harsh-bat/harsh-bat.github.io/main/building_inventory.csv"},
+            "transform":[
+                {
+                "filter": "datum['Congress Dist'] > 0"
+                }
+            ],
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                "field": "Congress Dist",
+                "sort": "y",
+                "title": "Cngressional District"
+            },
+                "y": {"aggregate": "count", "title": "Number of Buildings"}
+            },
+            "title": {
+                "text": "Number of Buildings by Congressional District",
+                "color": "blue", 
+                "fontSize": 24
+            }
+        };
         vegaEmbed('#myviz', mySpec);
     </script>
 </html>
